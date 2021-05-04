@@ -1,0 +1,116 @@
+use LearningDB;
+create table children(
+id int,
+subject varchar(20),
+mark int,
+name varchar(20));
+ select * from children;
+ insert into children values(101,'maths',98,'ram');
+ insert into children values(101,'tamil',96,'ram');
+ insert into children values(101,'hindi',92,'ram');
+ insert into children values(102,'maths',80,'sam');
+ insert into children values(102,'tamil',88,'sam'); 
+ insert into children values(102,'hindi',81,'sam');
+ insert into children values(103,'maths',71,'abi'); 
+ insert into children values(103,'tamil',72,'abi'); 
+ insert into children values(103,'hindi',79,'abi');
+ insert into children values(104,'maths',56,'anu');
+ insert into children values(104,'tamil',69,'anu');
+ insert into children values(104,'hindi',50,'anu');
+ select top 3* from children where subject='maths';
+ select avg(mark) as avg from children where mark>=40;
+
+
+ select top 3* from children 
+ where  mark in
+ (select *,avg(mark) from children where mark>=40)
+ 
+
+
+
+ create table child(
+id int identity(1,1),
+name varchar(20),
+tamil_mark int,
+maths_mark int,
+eng_mark int);
+
+select *from child;
+
+
+insert into child values('ram',87,56,45);
+insert into child values('sam',56,53,41);
+insert into child values('pam',81,76,95);
+insert into child values('vam',47,96,35);
+insert into child values('lam',37,46,75);
+
+select top 3 * from child where maths_mark=
+
+
+
+
+create table dep(
+dep_id int,
+dep_name varchar(20));
+select * from dep;
+create table st(
+st_id int,
+dep_name varchar(20),
+st_name varchar(20),
+mark int);
+select * from st;
+select * from dep;
+insert into dep values(101,'sam');
+insert into dep values(102,'dam');
+insert into dep values(103,'cam');
+insert into dep(dep_name) values('it');
+
+insert into st values(201,'sam','samritha',89);
+insert into st values(202,'sam','rithika',79);
+insert into st values(203,'sam','saran',88);
+insert into st values(204,'dam','sam',99);
+insert into st values(205,'dam','ritha',80);
+insert into st values(206,'dam','tharun',79);
+insert into st values(207,'cam','arun',95);
+insert into st values(208,'cam','mani',81);
+insert into st values(209,'cam','siva',59);
+insert into st values(210,'it','sivaan',59);
+
+select d.dep_name,count(s.st_name) from dep d
+right join st s on d.dep_name=s.dep_name
+group by d.dep_name
+
+select * from dep d
+right join st s on d.dep_name=s.dep_name
+where dep_id is Null
+
+
+create table tata(
+id int,
+name varchar(20),
+Count1 int);
+
+select * from tata
+
+insert into tata values(1,'apple',3);
+insert into tata values(2,'mango',4);
+insert into tata values(3,'orange',5);
+
+drop table tata;
+
+--pivot
+select * from(
+select name,Count1
+from tata )t
+pivot(
+  sum(Count1) for name
+  in(apple,mango,orange)
+  ) as p
+
+
+
+  select * from  tata 
+pivot(
+  sum(Count1) for name
+  in(apple,mango,orange)
+  ) as p
